@@ -1,0 +1,20 @@
+services:
+  angie:
+    image: docker.angie.software/angie:latest
+    container_name: angie
+    restart: unless-stopped
+
+    ports:
+      - "80:80"
+      - "443:443"
+
+    volumes:
+      - ./angie.conf:/etc/angie/angie.conf:ro
+      - ./http.d:/etc/angie/http.d
+      - ./acme:/var/lib/angie/acme
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
