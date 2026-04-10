@@ -13,7 +13,9 @@
 ## Структура
 
 - `angie.conf` - основной конфиг `Angie`
-- `http.d/sites.conf` - сайты и default vhost
+- `http.d/default.conf` - default vhost для неизвестных `Host`
+- `http.d/sites.conf.example` - пример конфигурации рабочих сайтов
+- `http.d/upstreams.conf.example` - пример локальных upstream-адресов
 - `http.d/proxy.conf` - общие proxy-заголовки
 - `generate-default-cert.sh` - локальная генерация self-signed сертификата
 
@@ -24,6 +26,22 @@
 ```sh
 ./generate-default-cert.sh
 ```
+
+Подготовить локальные upstream-адреса:
+
+```sh
+cp http.d/upstreams.conf.example http.d/upstreams.conf
+```
+
+После этого отредактировать `http.d/upstreams.conf` под свою сеть.
+
+Подготовить локальную конфигурацию сайтов:
+
+```sh
+cp http.d/sites.conf.example http.d/sites.conf
+```
+
+После этого отредактировать `http.d/sites.conf` под свои домены и маршруты.
 
 Поднять контейнер:
 
@@ -40,3 +58,5 @@ docker compose exec angie angie -t
 ## Важно
 
 Каталог `certs/` добавлен в `.gitignore` и не должен коммититься. Это не боевые сертификаты, но приватные ключи всё равно не стоит хранить в репозитории.
+
+Файлы `http.d/upstreams.conf` и `http.d/sites.conf` тоже добавлены в `.gitignore`. В репозитории хранятся только `*.example`, чтобы не светить реальные внутренние IP, адреса и доменные имена.

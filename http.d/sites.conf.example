@@ -1,0 +1,29 @@
+include /etc/angie/http.d/upstreams.conf;
+
+server {
+    listen 80;
+    server_name domain.com;
+
+    acme le;
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+server {
+    listen 443 ssl;
+    server_name domain.com;
+
+    acme le;
+
+    ssl_certificate     $acme_cert_le;
+    ssl_certificate_key $acme_cert_key_le;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers off;
+
+    location / {
+        include /etc/angie/http.d/proxy.conf;
+        proxy_pass http://domain_com;
+    }
+}

@@ -1,2 +1,4 @@
 acme/
 certs/
+http.d/sites.conf
+http.d/upstreams.conf
