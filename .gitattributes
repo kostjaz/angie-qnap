@@ -1,0 +1,5 @@
+*.yml linguist-language=YAML
+*.yaml linguist-language=YAML
+
+*.sh linguist-detectable=false
+*.conf linguist-detectable=false
